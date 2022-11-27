@@ -1,7 +1,7 @@
 public class User {
-    protected String name;
-    protected String username;
-    protected String password;
+    private String name;
+    private String username;
+    private String password;
 
     // Constructor User
     User(String name, String username, String password) {
