@@ -353,6 +353,8 @@ public class Main {
 
         if (count.get() != 0) {
             project.forEach((key, project) -> {
+                // Because we see the available to freelance, so we only show when the project
+                // didnt have any freelancer
                 if (project.getFreelancer() == null) {
                     System.out
                             .println(iterate.getAndIncrement() + ". " + project.getTitle() + " ("
