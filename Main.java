@@ -30,6 +30,8 @@ public class Main {
     static Freelancer loggedFreelancer = null;
     // Object scanner for input
     static Scanner scanner = new Scanner(System.in);
+    // AtomicInteger for unique ID for project
+    static AtomicInteger uniqueId = new AtomicInteger(1);
 
     public static void main(String[] args) {
         clearScr();
@@ -90,12 +92,10 @@ public class Main {
     }
 
     // This function is called when the program run, because we want to create user
-    // admin
+    // admin and admin cannot created by register.
     public static void initializeAdmin() {
         admin.put("fabianhabil", new Admin("Fabian Habil Ramdhan", "fabianhabil", "123"));
         listUsername.add("fabianhabil");
-        admin.put("habilr", new Admin("Habil Ramdhan", "habilr", "123"));
-        listUsername.add("habilr");
     }
 
     // The first menu for auth
@@ -111,10 +111,8 @@ public class Main {
                 System.out.println("Welcome to Fortune Freelance");
                 System.out.println("1. Register");
                 System.out.println("2. Log in");
-                System.out.println("3. Debug");
                 System.out.println("0. Exit");
                 int input = inputInteger("Choice: ");
-                System.out.println(input);
                 switch (input) {
                     case 0:
                         System.out.println("Thank you, bye!");
@@ -124,24 +122,6 @@ public class Main {
                         break;
                     case 2:
                         Login();
-                        break;
-                    case 3:
-                        System.out.println("test");
-                        project.forEach((key, project) -> {
-                            System.out
-                                    .println(project.getTitle() + " nama client " + project.getClient().getName()
-                                            + " username client "
-                                            + project.getClient().getUsername() + " nama freelancer "
-                                            + project.getFreelancer().getName() + " "
-                                            + project.getFreelancer().getUsername());
-                            if (loggedClient != null) {
-                                System.out.println(project.getClient() == loggedClient);
-                            }
-                            if (loggedFreelancer != null) {
-                                System.out.println(project.getFreelancer() == loggedFreelancer);
-                            }
-                        });
-                        enterToContinue();
                         break;
                     default:
                         System.out.println("Error! Invalid Choice");
@@ -338,6 +318,7 @@ public class Main {
                 System.out.println(
                         iterate.getAndIncrement() + ". " + project.getTitle() + " (" + project.getDescription() + ")");
                 System.out.println("   Fee: Rp" + project.getFee() + " (" + project.getDeadline() + ")");
+                System.out.println("   Deadline: " + project.getDeadline());
                 System.out.println("   ID Project = " + key);
                 if (project.getFreelancer() == null) {
                     System.out.println("   Freelancer status: No Freelancer taken this project yet.");
@@ -377,6 +358,7 @@ public class Main {
                             .println(iterate.getAndIncrement() + ". " + project.getTitle() + " ("
                                     + project.getDescription() + ")");
                     System.out.println("   Fee: Rp" + project.getFee() + " (" + project.getDeadline() + ")");
+                    System.out.println("   Deadline: " + project.getDeadline());
                     System.out.println("   ID Project = " + key);
                 }
             });
@@ -394,13 +376,13 @@ public class Main {
             // to numbering the list of the client for better user experience.
             AtomicInteger iterate = new AtomicInteger(1);
             client.forEach((key, client) -> {
-                System.out.println(
-                        iterate.getAndIncrement() + ". " + client.getName() + " (" + client.getUsername() + ")");
+                System.out.println(iterate.getAndIncrement() + ". Name: " + client.getName());
+                System.out.println("   Username: " + client.getUsername());
             });
         } else {
             System.out.println("There is no Client in Fortune Freelance");
         }
-        enterToContinue();
+
     }
 
     // Function for showing all freelancer
@@ -412,12 +394,11 @@ public class Main {
             // to numbering the list of the freelancer for better user experience.
             AtomicInteger iterate = new AtomicInteger(1);
             freelancer.forEach((key, freelancer) -> {
-                System.out.println(iterate.getAndIncrement() + ". " + freelancer.getName() + " ("
-                        + freelancer.getUsername() + ")");
+                System.out.println(iterate.getAndIncrement() + ". Name: " + freelancer.getName());
+                System.out.println("   Username: " + freelancer.getUsername());
             });
         } else {
             System.out.println("There is no Freelancer in Fortune Freelance");
         }
     }
-
 }
